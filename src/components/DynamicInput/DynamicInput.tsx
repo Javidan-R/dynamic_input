@@ -8,6 +8,7 @@ function DynamicInput<T extends object>({
   getDisplayText,
   placeholder = "Currency",
 }: Props<T>) {
+  const inputWrapperRef = useRef<HTMLInputElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
   const labelRef = useRef<HTMLLabelElement>(null);
   const {
@@ -26,9 +27,11 @@ function DynamicInput<T extends object>({
   const [highlightedIndex, setHighlightedIndex] = useState<number>(-1);
 
   const handleFocus = useCallback(() => {
-    if (labelRef.current) {
+    if (labelRef.current && inputWrapperRef.current) {
       labelRef.current.style.color = "#007bff";
+      inputWrapperRef.current.style.border = "2px solid #afaaaa";
     }
+
     setIsFocused(true);
   }, []);
 
@@ -36,6 +39,7 @@ function DynamicInput<T extends object>({
     if (labelRef.current) {
       labelRef.current.style.color = "#007bff";
     }
+
     if (selectedItem) {
       setInputValue(getDisplayText(selectedItem));
     }
@@ -44,13 +48,16 @@ function DynamicInput<T extends object>({
 
   const handleBlur = useCallback(() => {
     setTimeout(() => {
-      if (labelRef.current) {
+      if (labelRef.current && inputWrapperRef.current) {
         if (selectedItem) {
-          labelRef.current.style.color = "#000";
+          labelRef.current.style.color = "#afaaaa";
+          inputWrapperRef.current.style.border = "2px solid #afaaaa";
         } else {
-          labelRef.current.style.color = "#555";
+          labelRef.current.style.color = "#afaaaa";
+          inputWrapperRef.current.style.border = "1px solid #afaaaa";
         }
       }
+
       setIsFocused(false);
     }, 100);
   }, [selectedItem]);
@@ -87,7 +94,7 @@ function DynamicInput<T extends object>({
 
   return (
     <div className={styles.container}>
-      <div className={styles.inputWrapper}>
+      <div className={styles.inputWrapper} ref={inputWrapperRef}>
         <label
           ref={labelRef}
           className={`${styles.label} ${

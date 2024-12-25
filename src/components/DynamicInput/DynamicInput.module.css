@@ -1,9 +1,9 @@
 :root {
   --primary-color: #007bff;
-  --border-color: #ccc;
+  --border-color: #afaaaa;
   --font-family: "Roboto", sans-serif;
   --font-size-base: 16px;
-  --font-size-label: 20px;
+  --font-size-label: 18px;
   --font-size-label-focused: 14px;
   --padding-base: 10px;
   --padding-label: 8px;
@@ -28,18 +28,21 @@
 
 .inputWrapper {
   position: relative;
-  border: 2px solid var(--border-color);
+  border: 1px solid var(--border-color);
   border-radius: 4px;
-  padding: var(--padding-base);
-  padding-top: calc(var(--padding-base) + 10px);
+  padding: 8px 14px;
+  padding-top: calc(var(--padding-base) + 6px);
   transition: border-color var(--transition-duration) ease;
   background-color: transparent;
 }
-
+inputWrapper .focused {
+  border-width: 2px; /* Increase border width by 1px */
+  border-color: var(--primary-color);
+}
 .label {
   position: absolute;
-  top: 14px;
-  left: var(--padding-base);
+  top: 10px;
+  left: 6px;
   font-size: var(--font-size-label);
   color: #727479;
   background: white;
@@ -51,14 +54,14 @@
 
 .labelFocused {
   top: -10px;
-  left: 10px;
+  left: 6px;
   font-size: var(--font-size-label-focused);
   color: var(--primary-color);
 }
 
 .labelSelected {
   top: -10px;
-  left: 10px;
+  left: 6px;
   font-size: var(--font-size-label-focused);
   color: #555;
 }
